@@ -24,15 +24,14 @@ NEXT
 Download the main.py file and extract the zip file
 copy out the main.py file onto your desktop 
 
+open terminal and navigate to desktop (cd Desktop) 
+then type: python3 main.py 
+Then you should be good to go 
 
 
-Download modules to run the script
-TYPE THESE INTO TERMINAL: 
-pip3 install numpy 
-pip3 install matplotlib
-pip3 install art
+Once your in the calculator 
+type 'p' - practical operations (other menus developing) 
+the type 'g' - long term growth 
+then type '9' - 18 x 18 matrix calc 
+and fill in the info 
 
-#2) download pycharmfo
-
-
-(to get into desktop type ' cd desktop' 
