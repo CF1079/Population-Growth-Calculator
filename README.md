@@ -11,7 +11,7 @@ Go to Website - https://www.python.org/downloads/
 
 
 Download pip (an installer) 
-type into terminal: 'curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python'
+type into terminal: 'curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python3'
 
 Download tools for the function to work 
 type into terminal: 'pip install numpy' 
