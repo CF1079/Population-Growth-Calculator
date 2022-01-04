@@ -1,13 +1,12 @@
 # Population-Growth-Calculator
 calculating population growth using Leslie matrices 
 
-How to Get Started
+Requirements 
+- python 
 
+Install 
+- in terminal 'git clone https://github.com/CF1079/Population-Growth-Calculator.git' 
 
-YOU WILL NEED: 
-
-Download python 
-Go to Website - https://www.python.org/downloads/
 
 
 Download pip (an installer) 
