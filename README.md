@@ -5,17 +5,17 @@ This has been created to provide an efficent method to calculate population grow
 !Please note this has been adapted such that is useable for assignment purposes, specifically the Specialist Maths IA1! 
 
 
-  Requirements 
+Requirements 
 - python www.python.org for instructions 
 - pip installer type into terminal: 'curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python3'
 
-  Install 
+Install 
 - in terminal 'git clone https://github.com/CF1079/Population-Growth-Calculator.git' 
 - type 'ls' to view the directories
 - type 'cd Population-Growth-Calculator'
 - type 'python3 main.py' to run 
 
-  Running 
+Running 
 - follow prompts, detailed documentation will be available 
 
 
