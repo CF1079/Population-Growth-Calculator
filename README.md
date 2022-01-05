@@ -9,6 +9,7 @@ This has been created to provide an efficent method to calculate population grow
 Requirements 
 - python www.python.org for instructions 
 - pip installer type into terminal: 'curl https://bootstrap.pypa.io/pip/2.7/get-pip.py | python3'
+- matplotlib, numpy and art in terminal 'pip install matplotlib numpy art
 
 Install 
 - in terminal 'git clone https://github.com/CF1079/Population-Growth-Calculator.git' 
