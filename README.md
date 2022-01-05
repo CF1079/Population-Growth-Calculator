@@ -1,5 +1,6 @@
 # Population-Growth-Calculator
 Welcome To the Population Growth Calculator!
+
 This has been created to provide an efficent method to calculate population growth with respect to interstate and international migration. 
 
 - Please note this has been adapted such that is useable for assignment purposes, specifically the Specialist Maths IA1! -
