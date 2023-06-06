@@ -29,40 +29,89 @@ from art import *
 from popdb import PopDB
 
 
-class Population_Model: 
+class Population: 
     """ 
     
     """
     pass 
 
-class Calculation(Population):
+class Human(Population):
 
+    """
+    Methods 
+    -------
 
-    def __init__(self, num_generations, num_age_brackets): 
+    """
+   
+    def __init__(self, popdb: object): 
         
-        self._num_generations = num_generations 
-        self._num_age_brackets = num_age_brackets
+        self._popdb = popdb 
+        self._num_age_groups = self._popdb.get_number_age_groups()
 
-        # going to need a csv to store the information in and feed to the function 
-
-        # first the user will need to create a csv file 
-        # create function to make one for them 
-
-        # user then feeds the csv file into the function by calling its name 
     
-    
-    def simulate_growth(self): 
+    def simulate_growth(self, year: int): 
+
+        # access data from csv 
+        initial_populations = np.array([]) # np.array containing all of the age groups initial population values 
+        survival_rates = np.array([]) # list containing all of the age groups survival rates 
+        birth_rates = np.array([]) # list containing all of the age groups birth rates 
+       
+        for index in range(self._num_age_groups):
+            initial_populations = np.append(initial_populations, self._popdb.get_pop_data(index, ['initial_population']))
+            survival_rates = np.append(survival_rates, self._popdb.get_pop_data(index, ['survival_rate']))
+            birth_rates = np.append(birth_rates, self._popdb.get_pop_data(index, ['birth_rate']))
+
+        # format data 
+        initial_populations = initial_populations.reshape(self._num_age_groups,1)
+        survival_rates = survival_rates[0:-1]      
+
+        # create leslie matrix from this data 
+        leslie_matrix = np.zeros((self._num_age_groups - 1, self._num_age_groups - 1))
+        leslie_matrix[np.diag_indices_from(leslie_matrix)] = survival_rates
+        leslie_matrix = np.append(leslie_matrix, np.zeros((self._num_age_groups-1,1)), axis=1)
+        leslie_matrix = np.vstack([birth_rates, leslie_matrix])
         
-        ## simulations will be made using the matplotlib library as per the original 
+        # multiply leslie matrix (to the nth power) and population matrix 
         
-        pass
+        
+        population_calculated = np.matmul((np.linalg.matrix_power(leslie_matrix, year)) , initial_populations)
+        
+        
+        print(population_calculated)
+        
+
+        ## update the first row with birth rates 
+
+
+
+
     
 
 
+        ## Operations are with the Leslie Matricies 
+        
+        # P1 = L x P0; P2 = L^2 x P0; Pn = L^n x P0 
 
+        
+
+        ## Plot the predicted growth 
+        
+class Monkey(Population):  
+    pass 
+
+class Rat(Population): 
+    pass 
+
+class Fish(Population): 
+    pass 
 
 ## long term growth calc only contains 17 age groups, this assumption was made for the human spicies
 ## can use dictionaries to predict populations of other kinds, with smaller or large lifespans meaning more age groups are required 
+
+popdb = PopDB('test_database.csv')
+popsim = Human(popdb)
+print(popsim.simulate_growth(25))
+print(popsim.simulate_growth(26))
 
 def Long_Term_Growth_Calc():
     generations = []
@@ -765,10 +814,4 @@ def Long_Term_Growth_Calc():
     plt.legend()
     plt.show()
     print("\n\n")
-
-
-
-
-testdb = PopDB('test_database.csv')
-testdb.get_number_age_groups()
 

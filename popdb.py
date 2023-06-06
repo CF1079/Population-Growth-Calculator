@@ -5,6 +5,7 @@ Classes:
     PopDB
 """
 
+
 import csv
 import warnings
 #from datetime import date
@@ -13,7 +14,7 @@ conv_fn = {
     'age_group_index': float,
     'initial_population': float,
     'survival_rate': float,
-    'birth_rate': float,
+    'birth_rate': float
     }
 
 
@@ -43,7 +44,7 @@ class PopDB(object):
 
     Methods
     -------
-    get_number_of_age_groups
+    get_number_age_groups
     get_pop_data
     add_field_of_data
     """
