@@ -1,10 +1,23 @@
 # Population-Growth-Calculator
 Welcome To the Population Growth Calculator!
 
-This has been created to provide an efficent method to calculate population growth with respect to interstate and international migration. 
+This is a respository of resources relating to population modelling. 
+Initially this library has been created to provide an efficent method to calculate population growth using 'Leslie Matricies'.
+Originally it was implemented for a year 12 maths problem solving and modelling assignment. We given the problem of modelling the effect 
+of interstate and internaltional migration within a given state in Australia. The model we had to use for population growth was the Leslie matricies. 
+These were developed by Patrick Holt Leslie (1900 - 1972) when he worked with the University of Oxford, studying animal populations. 
 
-- Please note this has been adapted such that is useable for assignment purposes, specifically the Specialist Maths IA1! -
+This library will grow, implementing different methods of calulating population growth. 
+Firstly, the original file will be replicated, however, in an object oriented design (OOD) format.  
+In future I hope to: 
+- implement more accurate mathematics and modelling technqiues to better predict population behaviour. 
+This will extend to many animals, not just humans. This will be made easier through OOD.  
+- Create a GUI for the population modelling as an executable file, implementing the more accurate 
+model 
 
+
+To run the original file: 
+-------------------------
 
 Requirements 
 - python www.python.org for instructions 
@@ -15,17 +28,17 @@ Install
 - in terminal 'git clone https://github.com/CF1079/Population-Growth-Calculator.git' 
 - type 'ls' to view the directories
 - type 'cd Population-Growth-Calculator'
-- type 'python3 main.py' to run 
+- type 'python3 original_script_IA1' to run 
 
 Running 
-- follow prompts, detailed documentation will be available 
+- follow prompts, detailed documentation will be available through the help menu 
 
 
+To run the updated version of the original:
+-------------------------------------------
 
-The assignment adapted population growth calculator is limited, note further more extensive options will be available, coming soon: 
-- Detailed Population Growth Calculator 
-- General Purpose Matrix Calculator
+Coming Soon..... eta end of June 2023
 
-Both will be extensive and indepth 
+
 
 

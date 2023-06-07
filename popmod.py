@@ -48,22 +48,46 @@ class Human(Population):
         self._popdb = popdb 
         self._num_age_groups = self._popdb.get_number_age_groups()
 
-    
-    def simulate_growth(self, year: int): 
 
-        # access data from csv 
+    def simulate_growth(self, gens: int, high_series: tuple, medium_series: tuple, low_series: tuple): 
+        """
+        
+        
+        Parameters: 
+        ----------
+
+        gens: int -> how many generations will this predict
+
+        high_series: tuple -> user inputs a tuple of the high series variable growth factors (float) in this format: 
+            (<fertility_factor: float>, <survival_factor: float>, <NIM_factor: float>, <NOM_factor: float>)
+        
+        medium_series: tuple -> as per above
+
+        low_series: tuple -> as per above 
+        
+        
+        
+        """
+
         initial_populations = np.array([]) # np.array containing all of the age groups initial population values 
         survival_rates = np.array([]) # list containing all of the age groups survival rates 
         birth_rates = np.array([]) # list containing all of the age groups birth rates 
+        net_interstate_migration = np.array([])
+        net_overseas_migration = np.array([])
        
         for index in range(self._num_age_groups):
             initial_populations = np.append(initial_populations, self._popdb.get_pop_data(index, ['initial_population']))
             survival_rates = np.append(survival_rates, self._popdb.get_pop_data(index, ['survival_rate']))
             birth_rates = np.append(birth_rates, self._popdb.get_pop_data(index, ['birth_rate']))
+            net_interstate_migration = np.append(net_interstate_migration, self._popdb.get_pop_data(index, ['net_interstate_migration']))
+            net_overseas_migration = np.append(net_overseas_migration, self._popdb.get_pop_data(index, ['net_overseas_migration']))
 
         # format data 
         initial_populations = initial_populations.reshape(self._num_age_groups,1)
-        survival_rates = survival_rates[0:-1]      
+        survival_rates = survival_rates[0:-1]
+        net_immigration_total = (net_interstate_migration + net_overseas_migration).reshape(self._num_age_groups, 1)
+        initial_populations_immigration = (initial_populations + net_immigration_total)
+        
 
         # create leslie matrix from this data 
         leslie_matrix = np.zeros((self._num_age_groups - 1, self._num_age_groups - 1))
@@ -71,14 +95,90 @@ class Human(Population):
         leslie_matrix = np.append(leslie_matrix, np.zeros((self._num_age_groups-1,1)), axis=1)
         leslie_matrix = np.vstack([birth_rates, leslie_matrix])
         
-        # multiply leslie matrix (to the nth power) and population matrix 
+        rows, cols = leslie_matrix.shape
+
+        H_FERTILITY_FACTOR = high_series[0]
+        H_SURVIVAL_FACTOR = high_series[1]
+        H_IMMMIGRATION_FACTOR = high_series[2] + high_series[3]
+    
+        hseries_nat_leslies = []
+
+        for gen in range(1,gens + 1): 
+            #update matrix values with growth factors as a linear function considering time 
+            for row in range(rows): 
+                birthrate = leslie_matrix[0][row]
+                if birthrate > 0:
+                    leslie_matrix[0][row] += H_FERTILITY_FACTOR 
+                else: 
+                    pass 
+           
+            for col in range(cols-1): 
+                column = leslie_matrix[:,col]
+                survivalrate = column[col+1]
+                if survivalrate > 0: 
+                     leslie_matrix[col+1][col] += H_SURVIVAL_FACTOR
+                else: 
+                    pass 
+           
+            hseries_nat_leslies.append(np.linalg.matrix_power(leslie_matrix, gen))  
+ 
+        ## Calculate each of the populations 
+
+        h_nat_final_pop = []
+        for leslie in hseries_nat_leslies:
+            h_nat_final_pop.append(np.matmul(leslie, initial_populations))
         
+        h_nat_final_sum = []
+        for pop_mat in h_nat_final_pop: 
+            h_nat_final_sum.append(np.sum(pop_mat))
+
+
+        ## Plot the data for natural increase  
+
+        #x_data = np.linspace(0, gens, gens)
+        #y_data = h_nat_final_sum
+        #fig, ax = plt.subplots()
+        #ax.plot(x_data, y_data)
+        #plt.show()
+
+
+        ## calculate the difference made by immigation 
         
-        population_calculated = np.matmul((np.linalg.matrix_power(leslie_matrix, year)) , initial_populations)
+        immigration_considered_pop_naught = []
+        for gen in range(1, gens+1):
+            initial_populations_immigration += H_IMMMIGRATION_FACTOR
+            immigration_considered_pop_naught.append(np.copy(initial_populations_immigration))
+
+        hseries_nat_leslies_immigration = np.matmul(hseries_nat_leslies, immigration_considered_pop_naught) 
+      
+        h_nat_final_immigration_sum = []
+        for pop_mat in hseries_nat_leslies_immigration:
+            h_nat_final_immigration_sum.append(np.sum(pop_mat))
         
+
+        x_data = np.linspace(0, gens, gens)
+        y_data = h_nat_final_immigration_sum
+        fig, ax = plt.subplots()
+        ax.plot(x_data, y_data, h_nat_final_sum)
+        plt.show()
+
         
-        print(population_calculated)
+
+            
+    
+            
+  
         
+    
+    
+
+    
+
+
+
+
+
+
 
         ## update the first row with birth rates 
 
@@ -105,13 +205,22 @@ class Rat(Population):
 class Fish(Population): 
     pass 
 
+class Bacteria(Population): 
+    pass 
+
 ## long term growth calc only contains 17 age groups, this assumption was made for the human spicies
 ## can use dictionaries to predict populations of other kinds, with smaller or large lifespans meaning more age groups are required 
 
-popdb = PopDB('test_database.csv')
-popsim = Human(popdb)
-print(popsim.simulate_growth(25))
-print(popsim.simulate_growth(26))
+def main(): 
+    popdb = PopDB('test_database.csv')
+    popsim = Human(popdb)
+    high_series = (0.000011815,0.0000254545, 1180.0, 7588.0) # rethink how these values were determined
+    med_series = (0, 0, -440.0, -1455.0)
+    low_series = (-0.0000281844, -0.0000145455, -1276.0, -3936.0)
+    popsim.simulate_growth(40,high_series, med_series, low_series)
+
+
+main()
 
 def Long_Term_Growth_Calc():
     generations = []
@@ -181,6 +290,7 @@ def Long_Term_Growth_Calc():
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, survival_rate15, 0, 0, 0],
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, survival_rate16, 0, 0],
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, survival_rate17, 0]])
+    
     print("\n\nYour Leslie Matrix is....")
     sleep(1)
     print(Matrix1)
@@ -220,7 +330,7 @@ def Long_Term_Growth_Calc():
 
 
     hnatleslie = []
-    for year in generations:
+    for year in generations: ## error: incorrect consideration of updating birthrates 
         hnatleslie.append(matrix_power(np.array([[birthrate1 + (0.0000118156 * (year - 1)),
                                                   birthrate2 + (0.0000118156 * (year - 1)),
                                                   birthrate3 + (0.0000118156 * (year - 1)),
@@ -279,7 +389,7 @@ def Long_Term_Growth_Calc():
 
     hnatanswer = []
     for array in hnatleslie:
-        hnatanswer.append(array.dot(Matrix2))
+        hnatanswer.append(array.dot(Matrix2)) 
 
     hnatfinal = []
     for harraypop in hnatanswer:

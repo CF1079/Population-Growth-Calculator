@@ -11,10 +11,11 @@ import warnings
 #from datetime import date
 
 conv_fn = {
-    'age_group_index': float,
     'initial_population': float,
     'survival_rate': float,
-    'birth_rate': float
+    'birth_rate': float, 
+    'net_interstate_migration': int, 
+    "net_overseas_migration": int
     }
 
 

@@ -6,3 +6,6 @@ Update the population calculator (calculations still based on leslie matrix oper
 - create a tool to access and manipulate the csv (based from satdb from ENGG1001) just change the fields etc. 
 
 
+## look at the edwards 2011 source from IA1 
+
+
