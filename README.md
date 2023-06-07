@@ -34,10 +34,18 @@ Running
 - follow prompts, detailed documentation will be available through the help menu 
 
 
-To run the updated version of the original:
+To run the UPDATED version of the original:
 -------------------------------------------
 
-Coming Soon..... eta end of June 2023
+Requirements are as above. 
+
+To run new script, download this repository and navigate to it in the 
+command line. 
+
+Run the script using python. Type 'python3 original_OO_version.py'.
+No on screen instructions are given, to model data, you must enter manually into the
+'test_database.csv' and if you wish to have 'dynamic data', please change these factors
+when running the script, otherwise leave them as 0. 
 
 
 

@@ -6,8 +6,6 @@ __version__ = '0.01'
 __date__ = '11/06/2023'
 
 
-import popmod 
-
 
 
 

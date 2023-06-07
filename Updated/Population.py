@@ -28,6 +28,17 @@ __date__ = '11/06/2023'
 """
 
 
+def main(): 
+    popdb = PopDB('test_database.csv')
+    popsim = Human(popdb)
+    high_series = (0.000011815,0.0000254545, 1180.0, 7588.0) # rethink how these values were determined
+    med_series = (0, 0, -440.0, -1455.0)
+    low_series = (-0.0000281844, -0.0000145455, -1276.0, -3936.0)
+    popsim.simulate_growth(40,high_series, med_series, low_series)
+
+
+main()
+
     start_menu()
 
 ## dependencies 
