@@ -19,17 +19,6 @@ __date__ = '11/06/2023'
 
 
 
-""" def download_materials():
-    import subprocess
-    import sys
-    subprocess.check_call([sys.executable, "-m", "pip", "install", 'numpy'])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", 'matplotlib'])
-    subprocess.check_call([sys.executable, "-m", "pip", "install", 'art'])
-"""
-
-
-    start_menu()
-
 ## dependencies 
 
 import numpy as np
@@ -37,29 +26,44 @@ from time import sleep
 from numpy.linalg import matrix_power
 from matplotlib import pyplot as plt
 from art import *
+import PopDB
 
 
-def start_menu():
- tprint("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPopulation Growth Calculator!")
- print("************************************************************************************************")
- print("\n Copyright © of Charlie Falk, 2021")
- print("\n Built for the IA1 Specialists Maths PSMT")
- print("\n 40-year Projection of the Population of Victoria")
- print("\n************************************************************************************************")
- sleep(1)
- print("\nOptions \n\n[p] = Projections \n\n[d] = Documentation" )
- choosing = (input("\nWhat do you need???: "))
- while choosing != 'p' and choosing != 'd':
-     print('Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n Incorrect Response! \n')
-     sleep(0.3)
-     print('Please Try Again')
-     sleep(0.4)
-     print("\n Here are your options: \n \n \n [p] = Projections \n [d] Documentation")
-     choosing = (input(" What do you need???: "))
- if(choosing == 'p'):
-     Long_Term_Growth_Calc()
- elif(choosing == 'd'):
-     Documentation_Menu()
+class Population_Model: 
+    """ 
+    
+    """
+    pass 
+
+class Calculation(Population):
+
+
+    def __init__(self, num_generations, num_age_brackets): 
+        
+        self._num_generations = num_generations 
+        self._num_age_brackets = num_age_brackets
+
+        # going to need a csv to store the information in and feed to the function 
+
+        # first the user will need to create a csv file 
+        # create function to make one for them 
+
+        # user then feeds the csv file into the function by calling its name 
+    
+    
+    def simulate_growth(self): 
+        
+        ## simulations will be made using the matplotlib library as per the original 
+        
+        pass
+    
+
+
+
+
+## long term growth calc only contains 17 age groups, this assumption was made for the human spicies
+## can use dictionaries to predict populations of other kinds, with smaller or large lifespans meaning more age groups are required 
+
 def Long_Term_Growth_Calc():
     generations = []
     number = int(input("How many years will be projected?: "))
@@ -761,35 +765,10 @@ def Long_Term_Growth_Calc():
     plt.legend()
     plt.show()
     print("\n\n")
-    exit_menu()
-def Documentation_Menu():
-   print("The Population Projection Calculator was created for the Specialist Maths IA1")
-   print("\n It utilises matrix operations from the numpy library to generate a graph of a population projection")
 
 
 
-def exit_menu():
- sleep(1)
- print("Where do you want to go? ")
- print("[r] = redo \n[m] = main menu \n[q] = quit")
- whats_next = input("Where are you going now?: ")
- while whats_next != 'r' and whats_next != 'm' and whats_next != 'q':
-    print('Incorrect Response! \n Incorrect Response! \n Incorrect Response!')
-    sleep(0.3)
-    print('Please Try Again')
-    sleep(0.4)
-    print("Where do you want to go? ")
-    print("[r] = redo \n[m] = main menu \n[q] = quit")
-    whats_next = (input("Where are you going now?: "))
- if (whats_next == 'r'):
-    Long_Term_Growth_Calc()
- elif (whats_next == 'm'):
-    start_menu()
- elif (whats_next == 'q'):
-  print("\n GoodBye:)")
-  sleep(0.5)
-  quit()
 
-
-
+popdb = PopDB('test_database.csv')
+popdb.get_number_age_groups()
 

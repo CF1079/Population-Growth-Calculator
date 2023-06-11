@@ -5,12 +5,10 @@
 
 def download_materials():
     import subprocess
-    import sys
     subprocess.check_call([sys.executable, "-m", "pip", "install", 'numpy'])
     subprocess.check_call([sys.executable, "-m", "pip", "install", 'matplotlib'])
     subprocess.check_call([sys.executable, "-m", "pip", "install", 'art'])
 
-    start_menu()
 import numpy as np
 from time import sleep
 from numpy.linalg import matrix_power
@@ -743,27 +741,26 @@ def Documentation_Menu():
    print("The Population Projection Calculator was created for the Specialist Maths IA1")
    print("\n It utilises matrix operations from the numpy library to generate a graph of a population projection")
 def exit_menu():
- sleep(1)
- print("Where do you want to go? ")
- print("[r] = redo \n[m] = main menu \n[q] = quit")
- whats_next = input("Where are you going now?: ")
- while whats_next != 'r' and whats_next != 'm' and whats_next != 'q':
-    print('Incorrect Response! \n Incorrect Response! \n Incorrect Response!')
-    sleep(0.3)
-    print('Please Try Again')
-    sleep(0.4)
+    sleep(1)
     print("Where do you want to go? ")
     print("[r] = redo \n[m] = main menu \n[q] = quit")
-    whats_next = (input("Where are you going now?: "))
- if (whats_next == 'r'):
-    Long_Term_Growth_Calc()
- elif (whats_next == 'm'):
-    start_menu()
- elif (whats_next == 'q'):
-  print("\n GoodBye:)")
-  sleep(0.5)
-  quit()
+    whats_next = input("Where are you going now?: ")
+    while whats_next != 'r' and whats_next != 'm' and whats_next != 'q':
+        print('Incorrect Response! \n Incorrect Response! \n Incorrect Response!')
+        sleep(0.3)
+        print('Please Try Again')
+        sleep(0.4)
+        print("Where do you want to go? ")
+        print("[r] = redo \n[m] = main menu \n[q] = quit")
+        whats_next = (input("Where are you going now?: "))
+    if (whats_next == 'r'):
+        Long_Term_Growth_Calc()
+    elif (whats_next == 'm'):
+        start_menu()
+    elif (whats_next == 'q'):
+        print("\n GoodBye:)")
+        sleep(0.5)
+        quit()
 
-download_materials()
-
+start_menu()
 

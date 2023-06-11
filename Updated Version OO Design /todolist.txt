@@ -1,5 +1,0 @@
-Leave old file there to reference and to see how good python skills were in year 11
-- update the read me for noobs to access the file (by simply runnign a .exe or .dmg to run the script)
-- use the python downloader thing
-
-Update the population calculator (based on leslie matrix operations), change the design to object oriented
