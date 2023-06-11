@@ -26,7 +26,7 @@ from time import sleep
 from numpy.linalg import matrix_power
 from matplotlib import pyplot as plt
 from art import *
-import PopDB
+import popdb import PopDB
 
 
 class Population_Model: 
@@ -769,6 +769,6 @@ def Long_Term_Growth_Calc():
 
 
 
-popdb = PopDB('test_database.csv')
-popdb.get_number_age_groups()
+testdb = PopDB('test_database.csv')
+testdb.get_number_age_groups()
 
