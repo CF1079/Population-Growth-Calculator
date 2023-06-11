@@ -26,7 +26,7 @@ from time import sleep
 from numpy.linalg import matrix_power
 from matplotlib import pyplot as plt
 from art import *
-import popdb import PopDB
+from popdb import PopDB
 
 
 class Population_Model: 
